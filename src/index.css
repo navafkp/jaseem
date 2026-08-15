@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:wght@400&display=swap');
+@import 'tailwindcss';
+
+/* Font aliases matching Figma naming convention */
+@font-face {
+  font-family: 'Roboto:Regular';
+  src: url('https://static.figma.com/font/Roboto_wdth_wght__3') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto:Medium';
+  src: url('https://static.figma.com/font/Roboto_wdth_wght__3') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto:SemiBold';
+  src: url('https://static.figma.com/font/Roboto_wdth_wght__3') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter:Regular';
+  src: url('https://static.figma.com/font/Inter_1') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter:Medium';
+  src: url('https://static.figma.com/font/Inter_1') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter:Semi Bold';
+  src: url('https://static.figma.com/font/Inter_1') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'EB Garamond:Regular';
+  src: url('https://static.figma.com/font/EBGaramond_wght__1') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter:Italic';
+  src: url('https://static.figma.com/font/Inter_1') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hickory_Jack:Regular';
+  src: local('Dancing Script'), local('Zapf-Chancery');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Scroll animation base states */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+}
+
+.slide-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Smooth delay helpers */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+
+/* FAQ accordion animation */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-answer.open {
+  max-height: 300px;
+}
+
+/* Smooth flavor transition */
+.flavor-section {
+  transition: background-color 0.5s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
