@@ -109,23 +109,11 @@ function Stars({ rating }: { rating: string }) {
 
 /* ─── Navigation ─── */
 function Nav() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.85)',
-        backdropFilter: 'blur(12px)',
-        boxShadow: scrolled ? '0 1px 16px rgba(0,0,0,0.07)' : 'none',
-      }}
+      className="absolute top-0 left-0 right-0 z-50 transition-all duration-300"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 h-[80px] flex items-center justify-between">
         {/* Logo */}
@@ -225,73 +213,71 @@ function HeroSection() {
   return (
     <section
       id="home"
-      className="relative pt-[80px] min-h-screen flex flex-col overflow-hidden"
-      style={{ background: 'linear-gradient(90deg, rgb(234,234,236) 0%, rgb(228,228,230) 27%, rgb(222,222,222) 52%, rgb(207,204,205) 77%, rgb(197,195,196) 94%)' }}
+      className="relative flex flex-col overflow-hidden"
+      style={{ background: 'rgb(232,231,232)' }}
     >
-      <div className="absolute left-0 top-0 bottom-0 w-[140px] hidden lg:block"
-        style={{ background: 'linear-gradient(180deg, rgb(233,233,233) 0%, rgb(234,234,236) 15%, rgb(227,227,229) 52%, rgb(213,213,215) 94%)' }}
-      />
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 50%, rgba(255,255,255,0.45) 0%, transparent 70%)' }}
-      />
+      <div className="order-2 lg:order-none relative w-full mx-auto overflow-hidden"
+        style={{ height: 'clamp(460px, 64vw, 680px)' }}>
+        <video
+          src={heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: '70% center' }}
+        />
+        {/* Fades only the blank tabletop margin now visible below the packets — doesn't touch product pixels */}
+        <div className="absolute bottom-0 left-0 right-0 h-[36px] pointer-events-none"
+          style={{ background: 'linear-gradient(180deg, transparent 0%, rgb(232,231,232) 100%)' }}
+        />
+      </div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 flex flex-col lg:flex-row items-center min-h-[calc(100vh-80px)] py-16 gap-12">
-        <div className="flex-1 flex flex-col gap-6 slide-left">
-          <p className="text-[11px] tracking-[2.4px] uppercase font-semibold"
-            style={{ fontFamily: "'Roboto:SemiBold', Roboto, sans-serif", color: '#414944' }}>
-            ARTISANAL MINIMALISM
-          </p>
-          <div>
-            <h1 className="text-[clamp(52px,6vw,75px)] leading-[1.0] font-medium"
-              style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#1a1a18', letterSpacing: '-1.28px' }}>
-              Pure <span style={{ color: '#9a6506' }}>Honey</span>
-            </h1>
-            <h1 className="text-[clamp(52px,6vw,75px)] leading-[1.0] font-medium"
-              style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#1a1a18', letterSpacing: '-1.28px' }}>
-              Just as Nature made it.
-            </h1>
-          </div>
-          <p className="text-[17px] leading-[28px] max-w-[540px]"
-            style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif", color: '#414944' }}>
-            Crafted with minimal processing to protect the true essence of forest honey
-          </p>
-          <div className="flex gap-4 flex-wrap">
-            <a href="#shop"
-              className="inline-flex items-center px-8 py-[17px] rounded-full text-[18px] font-medium text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-              style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", background: '#9a6506', boxShadow: '0 1px 1px rgba(0,0,0,0.05)' }}>
-              Shop Collection
-            </a>
-          </div>
-        </div>
-
-        <div className="flex-1 flex justify-center items-center slide-right delay-200">
-          <div className="relative w-full max-w-[520px]">
-            <div className="absolute -inset-6 rounded-3xl pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(154,101,6,0.10) 0%, transparent 70%)' }} />
-            <video
-              src={heroVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="relative w-full h-auto rounded-2xl object-cover"
-              style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.14)', maxHeight: '580px' }}
-            />
+      {/* Text: stacks in normal flow on mobile (own height, no clipping); becomes an overlay anchored to the nav's width at desktop */}
+      <div className="order-1 lg:order-none relative lg:absolute lg:inset-0 z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-10 lg:py-0 flex items-center pointer-events-none">
+        <div className="pointer-events-auto lg:translate-y-[1%] lg:translate-x-[5%]">
+          <div className="flex flex-col gap-4 max-w-[600px] slide-left">
+            <p className="text-[10px] tracking-[2.4px] uppercase font-semibold"
+              style={{ fontFamily: "'Roboto:SemiBold', Roboto, sans-serif", color: '#414944' }}>
+              ARTISANAL MINIMALISM
+            </p>
+            <div>
+              <h1 className="text-[clamp(38px,4.5vw,56px)] leading-[1.0] font-medium"
+                style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#1a1a18', letterSpacing: '-1.28px' }}>
+                Pure <span style={{ color: '#9a6506' }}>Honey</span>
+              </h1>
+              <h1 className="text-[clamp(38px,4.5vw,56px)] leading-[1.0] font-medium"
+                style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#1a1a18', letterSpacing: '-1.28px' }}>
+                Just as Nature<br />made it.
+              </h1>
+            </div>
+            <p className="text-[15px] leading-[24px] max-w-[540px]"
+              style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif", color: '#414944' }}>
+              Crafted with minimal processing to protect the true essence of forest honey
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              <a href="#shop"
+                className="inline-flex items-center px-6 py-[12px] rounded-full text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+                style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", background: '#9a6506', boxShadow: '0 1px 1px rgba(0,0,0,0.05)' }}>
+                Shop Collection
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 w-full py-6 px-8 md:px-16"
-        style={{ background: 'rgba(255,255,255,0.3)', backdropFilter: 'blur(4px)' }}>
-        <div className="max-w-[1440px] mx-auto flex flex-wrap gap-6 md:gap-12 justify-center md:justify-start items-center">
+      <div className="order-3 lg:order-none relative z-10 w-full py-6 px-8 md:px-16">
+        <div className="max-w-[1440px] mx-auto flex flex-wrap gap-6 md:gap-8 justify-center md:justify-between items-center">
           {[
-            { icon: '🍯', label: '100% RAW & UNFILTERED' },
-            { icon: '🌿', label: 'ETHICALLY HARVESTED' },
-            { icon: '🔬', label: 'LAB TESTED PURITY' },
-            { icon: '🌍', label: 'CARBON NEUTRAL SHIPPING' },
+            { path: 'M7.6 21L5.7 17.8L2.1 17L2.45 13.3L0 10.5L2.45 7.7L2.1 4L5.7 3.2L7.6 0L11 1.45L14.4 0L16.3 3.2L19.9 4L19.55 7.7L22 10.5L19.55 13.3L19.9 17L16.3 17.8L14.4 21L11 19.55L7.6 21V21M8.45 18.45L11 17.35L13.6 18.45L15 16.05L17.75 15.4L17.5 12.6L19.35 10.5L17.5 8.35L17.75 5.55L15 4.95L13.55 2.55L11 3.65L8.4 2.55L7 4.95L4.25 5.55L4.5 8.35L2.65 10.5L4.5 12.6L4.25 15.45L7 16.05L8.45 18.45V18.45M9.95 14.05L15.6 8.4L14.2 6.95L9.95 11.2L7.8 9.1L6.4 10.5L9.95 14.05V14.05', viewBox: '0 0 22 21', w: 22, h: 21, label: '100% RAW & UNFILTERED' },
+            { path: 'M2.4 14.5923C1.65 13.8423 1.0625 12.9756 0.6375 11.9923C0.2125 11.009 0 9.99231 0 8.94231C0 7.89231 0.2 6.85481 0.6 5.82981C1 4.80481 1.65 3.84231 2.55 2.94231C3.13333 2.35897 3.85417 1.85897 4.7125 1.44231C5.57083 1.02564 6.5875 0.696474 7.7625 0.454808C8.9375 0.213141 10.2792 0.0673077 11.7875 0.0173077C13.2958 -0.0326923 14.9833 0.025641 16.85 0.192308C16.9833 1.95897 17.025 3.58397 16.975 5.06731C16.925 6.55064 16.7875 7.88814 16.5625 9.07981C16.3375 10.2715 16.0208 11.3131 15.6125 12.2048C15.2042 13.0965 14.7 13.8423 14.1 14.4423C13.2167 15.3256 12.2792 15.9715 11.2875 16.3798C10.2958 16.7881 9.28333 16.9923 8.25 16.9923C7.16667 16.9923 6.10833 16.7798 5.075 16.3548C4.04167 15.9298 3.15 15.3423 2.4 14.5923V14.5923M5.2 14.1923C5.68333 14.4756 6.17917 14.6798 6.6875 14.8048C7.19583 14.9298 7.71667 14.9923 8.25 14.9923C9.01667 14.9923 9.775 14.8381 10.525 14.5298C11.275 14.2215 11.9917 13.7256 12.675 13.0423C12.975 12.7423 13.2792 12.3215 13.5875 11.7798C13.8958 11.2381 14.1625 10.5298 14.3875 9.65481C14.6125 8.77981 14.7833 7.72147 14.9 6.47981C15.0167 5.23814 15.0333 3.75897 14.95 2.04231C14.1333 2.00897 13.2125 1.99647 12.1875 2.00481C11.1625 2.01314 10.1417 2.09231 9.125 2.24231C8.10833 2.39231 7.14167 2.63397 6.225 2.96731C5.30833 3.30064 4.55833 3.75897 3.975 4.34231C3.225 5.09231 2.70833 5.83397 2.425 6.56731C2.14167 7.30064 2 8.00897 2 8.69231C2 9.67564 2.1875 10.5381 2.5625 11.2798C2.9375 12.0215 3.26667 12.5423 3.55 12.8423C4.25 11.509 5.175 10.2298 6.325 9.00481C7.475 7.77981 8.81667 6.77564 10.35 5.99231C9.15 7.04231 8.10417 8.22981 7.2125 9.55481C6.32083 10.8798 5.65 12.4256 5.2 14.1923V14.1923Z', viewBox: '0 0 17 17', w: 17, h: 17, label: 'ETHICALLY HARVESTED' },
+            { path: 'M2.0285 18C1.1785 18 0.574338 17.6208 0.216005 16.8625C-0.142329 16.1042 -0.0548287 15.4 0.478505 14.75L6.0285 8V2H5.0285C4.74517 2 4.50767 1.90417 4.316 1.7125C4.12434 1.52083 4.0285 1.28333 4.0285 1C4.0285 0.716667 4.12434 0.479167 4.316 0.2875C4.50767 0.0958333 4.74517 0 5.0285 0H13.0285C13.3118 0 13.5493 0.0958333 13.741 0.2875C13.9327 0.479167 14.0285 0.716667 14.0285 1C14.0285 1.28333 13.9327 1.52083 13.741 1.7125C13.5493 1.90417 13.3118 2 13.0285 2H12.0285V8L17.5785 14.75C18.1118 15.4 18.1993 16.1042 17.841 16.8625C17.4827 17.6208 16.8785 18 16.0285 18H2.0285V18M2.0285 16H16.0285L10.0285 8.7V2H8.0285V8.7L2.0285 16V16Z', viewBox: '0 0 18 18', w: 18, h: 18, label: 'LAB TESTED PURITY' },
+            { path: 'M5 16C4.16667 16 3.45833 15.7083 2.875 15.125C2.29167 14.5417 2 13.8333 2 13H0V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H16V4H19L22 8V13H20C20 13.8333 19.7083 14.5417 19.125 15.125C18.5417 15.7083 17.8333 16 17 16C16.1667 16 15.4583 15.7083 14.875 15.125C14.2917 14.5417 14 13.8333 14 13H8C8 13.8333 7.70833 14.5417 7.125 15.125C6.54167 15.7083 5.83333 16 5 16V16M5 14C5.28333 14 5.52083 13.9042 5.7125 13.7125C5.90417 13.5208 6 13.2833 6 13C6 12.7167 5.90417 12.4792 5.7125 12.2875C5.52083 12.0958 5.28333 12 5 12C4.71667 12 4.47917 12.0958 4.2875 12.2875C4.09583 12.4792 4 12.7167 4 13C4 13.2833 4.09583 13.5208 4.2875 13.7125C4.47917 13.9042 4.71667 14 5 14V14M2 11H2.8C3.08333 10.7 3.40833 10.4583 3.775 10.275C4.14167 10.0917 4.55 10 5 10C5.45 10 5.85833 10.0917 6.225 10.275C6.59167 10.4583 6.91667 10.7 7.2 11H14V2H2V2V2V11V11M17 14C17.2833 14 17.5208 13.9042 17.7125 13.7125C17.9042 13.5208 18 13.2833 18 13C18 12.7167 17.9042 12.4792 17.7125 12.2875C17.5208 12.0958 17.2833 12 17 12C16.7167 12 16.4792 12.0958 16.2875 12.2875C16.0958 12.4792 16 12.7167 16 13C16 13.2833 16.0958 13.5208 16.2875 13.7125C16.4792 13.9042 16.7167 14 17 14V14M16 9H20.25L18 6H16V9V9M8 6.5V6.5V6.5V6.5V6.5V6.5V6.5V6.5V6.5V6.5V6.5V6.5V6.5Z', viewBox: '0 0 22 16', w: 22, h: 16, label: 'CARBON NEUTRAL SHIPPING' },
           ].map((b) => (
             <div key={b.label} className="flex items-center gap-2.5">
-              <span className="text-[17px]">{b.icon}</span>
+              <svg width={b.w} height={b.h} viewBox={b.viewBox} fill="none" className="shrink-0">
+                <path d={b.path} fill="#7D5700" />
+              </svg>
               <span className="text-[13px] tracking-[0.7px] uppercase font-normal"
                 style={{ fontFamily: "'Inter:Regular', Inter, sans-serif", color: '#414944' }}>
                 {b.label}
@@ -710,7 +696,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="bg-[#fefefe]" style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif" }}>
+    <div className="relative" style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif", background: 'rgb(232,231,232)' }}>
       <Nav />
       <HeroSection />
       <ProductShowcase />
