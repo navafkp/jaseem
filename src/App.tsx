@@ -2,6 +2,18 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import logoImg from '@/imports/About/d6ae71745f43c080f9c9208d4c8bc0f4b984154d.png'
 import heroVideo from '@/imports/hf_20260723_091911_e578e587-1f66-4d48-9f2f-b8b881c1d275.mp4'
+import mintPack from '@/imports/Home/5908f1f4cd0bd8405b19389dc617e55fa15c397e.png'
+import clovePack from '@/imports/Home/a4c0e0e8ef65d2843f5f53a369ccdf2961e0a5bc.png'
+import cinnamonPack from '@/imports/Home/5fc64c41f6f3e69eb116eeaeaf2b43a4c97f306c.png'
+import rawPack from '@/imports/Home/c52ae250aa62d380bab88c85e53fe02f2746c7e6.png'
+import gingerPack from '@/imports/Home/3b8f416ac3f7d0cfed997c70bed6ceef28265898.png'
+import chilliPack from '@/imports/Home/86822d53d2532052065b1d82427c3da17abe89a7.png'
+import mintLeaf from '@/imports/Home/9be6ebd4636c65adfcee33f6f5d1976b8ea8ff97.png'
+import cloveAccent from '@/imports/Home/1caca5e4a2cb8b75325db1bde668e293f147948e.png'
+import cinnamonAccent from '@/imports/Home/b648fffbd92981389813f436b333f68fd87eb4b0.png'
+import rawAccent from '@/imports/Home/fdb253c1fb59c78857a3556b4379d0b1c47e6bcc.png'
+import gingerAccent from '@/imports/Home/2f782f5a37f016743d3f3835c2c7e5048a06086f.png'
+import chilliAccent from '@/imports/Home/111d7f8da45b21dd8c13710ad7d8f0ac28bfb8fd.png'
 
 /* ─── Scroll animation hook ─── */
 function useScrollReveal() {
@@ -20,7 +32,7 @@ function useScrollReveal() {
 /* ─── Types & data ─── */
 type Flavor = {
   id: string; label: string; name: string; color: string;
-  rating: string; desc: string; benefits: string[]; img: string
+  rating: string; desc: string; benefits: string[]; img: string; accent: string
 }
 
 const FLAVORS: Flavor[] = [
@@ -28,37 +40,37 @@ const FLAVORS: Flavor[] = [
     id: 'mint', label: 'MINT', name: 'Mint', color: '#94bf48', rating: '4.9',
     desc: 'Discover the sweet and delightful world of mint honey! This unique blend combines the refreshing essence of mint with the rich, golden sweetness of honey, perfect for drizzling over pancakes, stirring into tea, or enjoying straight from the jar.',
     benefits: ['Refreshing Sensation — cool, clean flavour profile', 'Aids Digestion — traditionally supports healthy digestion', 'Soothes Throat — honey coats, mint refreshes', 'Respiratory Comfort — cooling effect eases congestion', 'Antioxidant Rich — protects cells from oxidative stress', 'Natural Energy — quick carbohydrates, sustained fuel', 'Freshens Breath — a great choice after meals'],
-    img: 'https://images.unsplash.com/photo-1618130070080-91f4d55a2383?w=460&h=640&fit=crop',
+    img: mintPack, accent: mintLeaf,
   },
   {
     id: 'clove', label: 'CLOVE', name: 'Clove', color: '#bf9a5c', rating: '4.9',
     desc: 'Explore the enchanting flavors of clove honey! This exquisite blend marries the warm, spicy notes of clove with the luscious sweetness of honey, making it ideal for enhancing desserts, sweetening beverages, or savoring by the spoonful.',
     benefits: ['Antioxidant Power — honey and cloves protect cells', 'Immune Support — antimicrobial and immune-boosting', 'Oral Health Aid — soothes tooth and gum discomfort', 'Digestive Aid — supports healthy digestion', 'Throat Soother — warm, comforting sensation', 'Respiratory Relief — eases seasonal discomfort', 'Energy Boost — natural carbohydrates for vitality'],
-    img: 'https://images.unsplash.com/photo-1773957949154-a7d1ef35ae76?w=460&h=640&fit=crop',
+    img: clovePack, accent: cloveAccent,
   },
   {
     id: 'cinnamon', label: 'CINNAMON', name: 'Cinnamon', color: '#b7cc7a', rating: '4.7',
     desc: 'Discover the delightful taste of cinnamon honey! This unique combination brings together the warm, spicy essence of cinnamon with the rich sweetness of honey, perfect for elevating desserts or sweetening your favourite drinks.',
     benefits: ['Rich in Antioxidants — fights oxidative stress', 'Supports Immune Health — natural antimicrobial properties', 'Soothes Sore Throats — calms throat irritation', 'Promotes Digestive Health — eases digestive discomfort', 'Supports Heart Health — antioxidants aid cardiovascular health', 'Helps Balance Blood Sugar — may improve insulin sensitivity', 'Warming Comfort — perfect for cold-weather drinks'],
-    img: 'https://images.unsplash.com/photo-1777306086149-48c4e11e28ee?w=460&h=640&fit=crop',
+    img: cinnamonPack, accent: cinnamonAccent,
   },
   {
     id: 'raw', label: 'RAW', name: 'Raw', color: '#be5baf', rating: '4.5',
     desc: 'Experience the pure goodness of raw honey! This natural sweetener is perfect for enhancing your dishes, adding a touch of sweetness to beverages, or savoring by the spoonful. Transform your meals with this wholesome delight!',
     benefits: ['Rich in Natural Antioxidants — phenolic compounds', 'Natural Energy Source — fructose and glucose', 'Supports Immune Health — natural antimicrobial compounds', 'Soothes the Throat — coats and relieves coughs', 'Supports Digestive Health — naturally occurring enzymes', 'Contains Naturally Occurring Nutrients — vitamins & minerals', 'A Natural Sweetener — wholesome alternative to refined sugar'],
-    img: 'https://images.unsplash.com/photo-1773957949275-da0b3c04647e?w=460&h=640&fit=crop',
+    img: rawPack, accent: rawAccent,
   },
   {
     id: 'ginger', label: 'GINGER', name: 'Ginger', color: '#c5a35c', rating: '4.7',
     desc: 'Discover the delightful taste of ginger honey! This natural sweetener not only enhances your dishes but also adds a unique twist to your drinks. Enjoy it straight from the jar or use it to elevate your meals!',
     benefits: ['Rich in Antioxidants — ginger and honey combined', 'Supports Immune Health — bioactive compounds', 'Soothes the Throat — warm and comforting', 'Supports Digestive Health — relieves occasional nausea', 'Supports Respiratory Comfort — seasonal relief', 'Natural Energy Source — quick and lasting fuel', 'Supports Overall Wellness — balanced healthy lifestyle'],
-    img: 'https://images.unsplash.com/photo-1773957949191-7d57d0456544?w=460&h=640&fit=crop',
+    img: gingerPack, accent: gingerAccent,
   },
   {
     id: 'chilli', label: 'CHILLI', name: 'Chilli', color: '#be5b5b', rating: '4.7',
     desc: 'Savor the bold taste of chili honey! This all-natural sweetener elevates your dishes while adding a fiery twist to your drinks. Use it directly from the jar or incorporate it into your meals for an exciting flavor boost!',
     benefits: ['Natural Energy Source — natural carbohydrates', 'Rich in Antioxidants — plant compounds for protection', 'Supports Metabolism — capsaicin supports thermogenesis', 'Supports Digestive Health — stimulates digestive juices', 'Supports Healthy Circulation — capsaicin may aid blood flow', 'Naturally Enhances Flavour — sweet heat on pizza and more', 'Supports Overall Wellness — part of a balanced diet'],
-    img: 'https://images.unsplash.com/photo-1777306086149-48c4e11e28ee?w=460&h=640&fit=crop',
+    img: chilliPack, accent: chilliAccent,
   },
 ]
 
@@ -225,7 +237,7 @@ function HeroSection() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: '70% center' }}
+          style={{ objectPosition: 'center center', transform: 'scale(1.026) translateX(2%)' }}
         />
         {/* Fades only the blank tabletop margin now visible below the packets — doesn't touch product pixels */}
         <div className="absolute bottom-0 left-0 right-0 h-[36px] pointer-events-none"
@@ -300,16 +312,22 @@ function ProductShowcase() {
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
         style={{ width: '414px', height: '414px', background: 'radial-gradient(circle, rgba(246,246,246,0.5) 0%, transparent 70%)', filter: 'blur(50px)' }} />
 
+      {/* Fades in from the page's gray so this section bleeds out of the hero above it */}
+      <div className="absolute top-0 left-0 right-0 h-[160px] pointer-events-none"
+        style={{ background: 'linear-gradient(180deg, rgb(232,231,232) 0%, transparent 100%)' }} />
+
       <div className="relative z-10 max-w-[1440px] mx-auto px-8 md:px-16 py-20 flex flex-col lg:flex-row gap-12 items-start">
         <div className="flex-1 flex flex-col gap-4 min-w-0">
-          <p className="text-[clamp(52px,8vw,100px)] font-medium leading-none opacity-40 select-none"
-            style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#e8e8e8', letterSpacing: '6px', textShadow: '0 0 20px rgba(125,87,0,0.2)' }}>
-            {f.label}
-          </p>
-          <p className="text-[clamp(48px,5vw,80px)] font-normal -mt-4 select-none"
-            style={{ fontFamily: 'Georgia, serif', color: '#033425', letterSpacing: '-1.28px', fontStyle: 'italic' }}>
-            Honey
-          </p>
+          <div className="flex flex-col">
+            <p className="text-[clamp(52px,8vw,100px)] select-none"
+              style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", fontWeight: 500, color: 'rgba(255,255,255,0.85)', letterSpacing: 'clamp(5px,1vw,10px)', lineHeight: 'clamp(39px,6vw,75px)', verticalAlign: 'middle', textShadow: '0 0 20px rgba(125,87,0,0.15)' }}>
+              {f.label}
+            </p>
+            <p className="text-[clamp(46px,7.2vw,90px)] select-none"
+              style={{ fontFamily: "'Dancing Script', cursive", fontWeight: 400, color: '#033425', letterSpacing: '-1.28px', lineHeight: 'clamp(39px,6vw,75px)', verticalAlign: 'middle', paddingLeft: 'clamp(30px, 5vw, 60px)' }}>
+              Honey
+            </p>
+          </div>
           <p className="text-[11px] leading-[15px] font-medium uppercase mt-2"
             style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#033425' }}>
             {f.name} Health Benefits
@@ -318,36 +336,53 @@ function ProductShowcase() {
             style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif", color: '#033425' }}>
             {f.desc}
           </p>
-          <ul className="flex flex-col gap-1 mt-2">
-            {f.benefits.map((b, i) => (
-              <li key={i} className="text-[13px] leading-[20px]"
-                style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif", color: '#033425' }}>
-                {i + 1}. {b}
-              </li>
-            ))}
+          <ul className="flex flex-col gap-2.5 mt-2">
+            {f.benefits.map((b, i) => {
+              const [title, rest] = b.split(' — ')
+              return (
+                <li key={i} className="text-[13px] leading-[20px]"
+                  style={{ fontFamily: "'Roboto:Regular', Roboto, sans-serif", color: '#033425' }}>
+                  <span className="font-medium">{i + 1}. {title}</span>
+                  {rest && <><br /><span className="pl-[18px] opacity-80">&gt; {rest}</span></>}
+                </li>
+              )
+            })}
           </ul>
         </div>
 
         <div className="flex-1 flex justify-center items-center py-4">
-          <div className="relative" style={{ width: '360px', maxWidth: '90vw' }}>
-            <img src={f.img} alt={`${f.name} honey`} key={f.id}
-              className="w-full object-cover rounded-xl"
-              style={{ height: '520px', boxShadow: '0 32px 80px rgba(0,0,0,0.25)', animation: 'fadeSlideIn 0.4s ease' }}
+          <div className="relative flex items-center justify-center" style={{ width: '360px', maxWidth: '90vw', height: '520px' }}>
+            <img src={f.accent} alt="" key={`${f.id}-accent-1`} aria-hidden="true"
+              className="absolute object-contain pointer-events-none select-none"
+              style={{ width: '34%', top: '2%', right: '4%', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.15))', animation: 'fadeSlideIn 0.4s ease' }}
+            />
+            <img src={f.accent} alt="" key={`${f.id}-accent-2`} aria-hidden="true"
+              className="absolute object-contain pointer-events-none select-none"
+              style={{ width: '26%', bottom: '4%', left: '2%', transform: 'rotate(-18deg) scaleX(-1)', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.15))', animation: 'fadeSlideIn 0.4s ease' }}
+            />
+            <img src={f.img} alt={`${f.name} honey packet`} key={f.id}
+              className="relative object-contain"
+              style={{ height: '440px', maxWidth: '78%', filter: 'drop-shadow(0 32px 40px rgba(0,0,0,0.3))', animation: 'fadeSlideIn 0.4s ease' }}
             />
           </div>
         </div>
 
         <div className="flex-1 flex flex-col items-start lg:items-end gap-6 pt-4">
-          <div className="flex flex-col gap-1">
-            <p className="text-[40px] font-semibold leading-none"
-              style={{ fontFamily: "'Roboto:SemiBold', Roboto, sans-serif", color: '#033425' }}>
-              {f.rating}
-            </p>
-            <p className="text-[12px]" style={{ fontFamily: "'Inter:Medium', Inter, sans-serif", color: '#033425' }}>out of 5</p>
-            <Stars rating={f.rating} />
-            <p className="text-[13px] mt-1" style={{ fontFamily: "'Inter:Medium', Inter, sans-serif", color: 'rgba(3,52,37,0.75)' }}>
-              Based on 1,420+ reviews
-            </p>
+          <div className="flex items-start gap-4">
+            <div className="flex flex-col gap-0.5">
+              <p className="text-[32px] font-semibold leading-none"
+                style={{ fontFamily: "'Roboto:SemiBold', Roboto, sans-serif", color: '#033425' }}>
+                {f.rating}
+              </p>
+              <p className="text-[12px]" style={{ fontFamily: "'Inter:Medium', Inter, sans-serif", color: '#033425' }}>out of 5</p>
+            </div>
+            <div className="w-px self-stretch" style={{ background: 'rgba(3,52,37,0.2)' }} />
+            <div className="flex flex-col gap-1.5">
+              <Stars rating={f.rating} />
+              <p className="text-[13px]" style={{ fontFamily: "'Inter:Medium', Inter, sans-serif", color: 'rgba(3,52,37,0.75)' }}>
+                Based on 1,420+ reviews
+              </p>
+            </div>
           </div>
           <div className="flex flex-col gap-3 mt-4">
             <p className="text-[14px] leading-[24px]"
@@ -366,9 +401,9 @@ function ProductShowcase() {
         {FLAVORS.map((fl, i) => (
           <button key={fl.id} onClick={() => setActive(i)} className="relative flex flex-col items-center gap-2 transition-all duration-200"
             style={{ transform: i === active ? 'scale(1.12)' : 'scale(0.9)', opacity: i === active ? 1 : 0.65 }}>
-            <div className="w-[64px] h-[80px] rounded-lg overflow-hidden"
-              style={{ boxShadow: i === active ? '0 8px 24px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.12)', background: fl.color, border: i === active ? '2px solid rgba(255,255,255,0.8)' : '2px solid transparent' }}>
-              <img src={fl.img} alt={fl.name} className="w-full h-full object-cover" />
+            <div className="w-[64px] h-[80px] rounded-lg overflow-hidden flex items-center justify-center p-1.5"
+              style={{ boxShadow: i === active ? '0 8px 24px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.12)', background: 'rgba(255,255,255,0.5)', border: i === active ? '2px solid rgba(255,255,255,0.8)' : '2px solid transparent' }}>
+              <img src={fl.img} alt={fl.name} className="w-full h-full object-contain" />
             </div>
             <span className="text-[10px] font-medium uppercase"
               style={{ fontFamily: "'Roboto:Medium', Roboto, sans-serif", color: '#033425' }}>
